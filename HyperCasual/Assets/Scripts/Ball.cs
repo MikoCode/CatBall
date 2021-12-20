@@ -9,6 +9,8 @@ public class Ball : MonoBehaviour
     public Vector2 velocity;
     public bool movingLeft, movingRight;
     public GameObject sprite;
+    public AudioManager aM;
+    public ParticleSystem particle;
     
 
 
@@ -41,13 +43,18 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            ParticleSystem explosion  = Instantiate(particle, collision.transform.position, Quaternion.identity);
+            explosion.GetComponent<ParticleSystem>().startColor = sprite.gameObject.GetComponent<SpriteRenderer>().color;
+            aM.DeathSound();
             Destroy(gameObject);
-            Destroy(sprite);
-            GameManager.Instance.GameOver();       } 
+            sprite.gameObject.SetActive(false);
+            GameManager.Instance.GameOver();     
+        } 
 
 
         if (ballPower < 6 && GameManager.Instance.mainMenu == false)
         {
+            aM.BallBounce();
             if(ballPower < 4.2f)
             {
                 ballPower += 0.04f;

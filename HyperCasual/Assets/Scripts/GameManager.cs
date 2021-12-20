@@ -10,18 +10,20 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public int points;
     public ObstacleSpawner obstacleSpawner;
-    public bool isAlive, winLevel, isHold, spawnedCoin, mainMenu, shop;
-    public int coins, floor;
-    public GameObject Coin, Star;
+    public bool isAlive, winLevel, isHold, spawnedCoin, mainMenu, shop, muted;
+    public int coins, floor, startFloor;
+    public GameObject Coin, Star, Shop, PlayerSprite, muteButton;
     public Vector2 CoinPos;
     public GameObject[] powerUp;
     public Vector3 center, size, starCenter, starSize;
     private SpriteRenderer ball;
-    public TextMeshProUGUI scoreText, highScoreText, highScoreValue;
+    public TextMeshProUGUI scoreText, highScoreText, highScoreValue, coinsText;
     public SpriteRenderer[] background;
     public Button restartButton, playButton, shopButton;
     public int avgFrameRate;
-    public TextMeshProUGUI display_Text;
+    public AudioManager aM;
+    
+    
    [SerializeField] private int highScore;
 
     // Start is called before the first frame update
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        coins =  PlayerPrefs.GetInt("coins");
+        coinsText.text = "" + coins;
         points = 0;
         Application.targetFrameRate = 120;
 
@@ -147,18 +151,7 @@ public class GameManager : MonoBehaviour
         coins += coin;
     }
 
-    private void CollectibleGenerator()
-    {
-        Vector3 pos = center + new Vector3(Random.Range(-size.x / 2.3f, size.x / 2.3f), Random.Range(-size.y / 2.3f, size.y / 2.3f)) ;
-   
-
-        Instantiate(Coin, pos, Quaternion.identity);
-
-        if(Random.Range(0,5) == 0)
-        { 
-            Instantiate(powerUp[0], pos, Quaternion.identity);
-        }
-    }
+ 
 
     private void OnDrawGizmosSelected()
     {
@@ -173,6 +166,10 @@ public class GameManager : MonoBehaviour
 
    public void GameOver()
     {
+        
+        coins = points + PlayerPrefs.GetInt("coins");
+        PlayerPrefs.SetInt("coins", coins);
+
         if(points > highScore)
         {
             highScore = points;
@@ -206,24 +203,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void ShowFPS()
-    {
-        float current = 0;
-        current = current = (int)(1f / Time.unscaledDeltaTime);
-        avgFrameRate = (int)current;
-        display_Text.text = avgFrameRate.ToString() + " FPS";
-    }
-    private void MainMenu()
-    {
-        playButton.gameObject.SetActive(true);
-        shopButton.gameObject.SetActive(true);
-    }
+
 
 
     public void PlayButton()
     {
+        aM.PlaySound();
         mainMenu = false;
-        
+        startFloor = floor;
+        muteButton.gameObject.SetActive(false);
+        coinsText.gameObject.SetActive(false);
         playButton.gameObject.SetActive(false);
         shopButton.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false) ;
@@ -231,6 +220,27 @@ public class GameManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         
 
+    }
+    public void OpenShop()
+    {
+        aM.ClickSound();
+        muteButton.gameObject.SetActive(false);
+        Shop.gameObject.SetActive(true);
+        playButton.gameObject.SetActive(false);
+        shopButton.gameObject.SetActive(false);
+        highScoreValue.gameObject.SetActive(false);
+        highScoreText.gameObject.SetActive(false);
+    }
+
+    public void CloseShop()
+    {
+        aM.ClickSound();
+        muteButton.gameObject.SetActive(true);
+        Shop.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(true);
+        shopButton.gameObject.SetActive(true);
+        highScoreValue.gameObject.SetActive(true);
+        highScoreText.gameObject.SetActive(true);
     }
 
 }

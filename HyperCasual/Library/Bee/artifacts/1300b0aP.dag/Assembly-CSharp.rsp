@@ -313,6 +313,8 @@
 "Assets/Scripts/ScaleToFitScreen.cs"
 "Assets/Scripts/Sprite.cs"
 "Assets/Scripts/Star.cs"
+"Assets/ShopManager.cs"
+"Assets/ShopSprite.cs"
 -langversion:8.0
 
 /deterministic
