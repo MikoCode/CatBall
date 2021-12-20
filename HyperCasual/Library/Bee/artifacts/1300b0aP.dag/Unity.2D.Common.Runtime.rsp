@@ -101,8 +101,8 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"D:/GameJAM/HyperCasual/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/AOT/Newtonsoft.Json.dll"
--r:"D:/GameJAM/HyperCasual/Library/PackageCache/com.unity.visualscripting@1.6.1/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"D:/GameJAM/CatBall/HyperCasual/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/AOT/Newtonsoft.Json.dll"
+-r:"D:/GameJAM/CatBall/HyperCasual/Library/PackageCache/com.unity.visualscripting@1.6.1/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"D:/Program Files/Unity/2021.1.16f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll"
 -r:"D:/Program Files/Unity/2021.1.16f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ComponentModel.Composition.dll"
 -r:"D:/Program Files/Unity/2021.1.16f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Core.dll"

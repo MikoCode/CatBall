@@ -43,13 +43,24 @@ public class Ball : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(sprite);
-            GameManager.Instance.isAlive = false;
-        } 
+            GameManager.Instance.GameOver();       } 
 
 
-        if (ballPower < 6)
+        if (ballPower < 6 && GameManager.Instance.mainMenu == false)
         {
-            ballPower += 0.07f;
+            if(ballPower < 4.2f)
+            {
+                ballPower += 0.04f;
+            }
+            else if(ballPower >= 4.2f && ballPower < 5.3f)
+            {
+                ballPower += 0.02f;
+            }
+            else
+            {
+                ballPower += 0.01f;
+            }
+            
         }
        
         if (collision.gameObject.CompareTag("Left"))

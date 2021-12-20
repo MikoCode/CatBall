@@ -41,9 +41,6 @@ public class Coin : MonoBehaviour
             
         }
 
-     
-           
-        
         if (GameManager.Instance.winLevel == true && canBeDestroyed == true)
         {
             Destroy(gameObject);
